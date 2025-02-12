@@ -1,0 +1,47 @@
+import type { EVCar } from "@/types/ev"
+
+export const evCars: EVCar[] = [
+  {
+    id: "audi-etron-gts",
+    name: "Audi e-tron GTS",
+    make: "Audi",
+    model: "e-tron GTS",
+    year: 2024,
+    image: "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-DOVgrrwzm82t6DrhVI6fuxhrR4AbyM.png",
+    range: 238,
+    battery: 97,
+    acceleration: 3.1,
+    taxCredit: 0,
+    msrp: 104900,
+    costPerYear: 1128,
+  },
+  {
+    id: "tesla-model3",
+    name: "Tesla Model 3",
+    make: "Tesla",
+    model: "Model 3",
+    year: 2024,
+    image: "/placeholder.svg?height=400&width=600",
+    range: 272,
+    battery: 60,
+    acceleration: 5.8,
+    taxCredit: 7500,
+    msrp: 40240,
+    costPerYear: 980,
+  },
+  {
+    id: "ford-mache",
+    name: "Ford Mustang Mach-E",
+    make: "Ford",
+    model: "Mustang Mach-E",
+    year: 2024,
+    image: "/placeholder.svg?height=400&width=600",
+    range: 312,
+    battery: 91,
+    acceleration: 5.2,
+    taxCredit: 7500,
+    msrp: 45995,
+    costPerYear: 1050,
+  },
+]
+
