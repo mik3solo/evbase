@@ -1,0 +1,22 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model EV {
+  id           String  @id @default(uuid())
+  make         String
+  model        String
+  epa_range    Int
+  battery_kwh  Float
+  acceleration String
+  tax_credit   String
+  msrp         String
+  costPerYear  String?
+  img_url      String?
+  vehType      String?
+}

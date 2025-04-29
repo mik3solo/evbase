@@ -3,6 +3,7 @@ import { Inter, Poppins } from "next/font/google"
 import { MainNav } from "@/components/main-nav"
 import { Logo } from "@/components/logo"
 import { Footer } from "@/components/footer"
+import { Toaster } from "@/components/ui/toaster"
 import type React from "react"
 
 const inter = Inter({
@@ -17,9 +18,8 @@ const poppins = Poppins({
 })
 
 export const metadata = {
-  title: "EVplugged - Your EV Resource",
-  description: "Find the latest electric vehicle insights, news, and listings—all in one place.",
-    generator: 'v0.dev'
+  title: "electricvehiclebase - Your EV Resource",
+  description: "Find the latest electric vehicle insights, news, and guides—all in one place.",
 }
 
 export default function RootLayout({
@@ -52,11 +52,8 @@ export default function RootLayout({
             <Footer />
           </div>
         </div>
+        <Toaster />
       </body>
     </html>
   )
 }
-
-
-
-import './globals.css'

@@ -60,3 +60,24 @@
   mask-image: linear-gradient(to left, black 50%, transparent 100%);
 }
 
+/* Enhanced UI elements */
+.glow-effect {
+  box-shadow: 0 0 15px rgba(0, 163, 255, 0.5);
+}
+
+.card-hover-effect {
+  transition: all 0.3s ease;
+}
+
+.card-hover-effect:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px rgba(0, 163, 255, 0.2);
+}
+
+.gradient-text {
+  background: linear-gradient(90deg, #2596be, #D0DDD0);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: transparent;
+}

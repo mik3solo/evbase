@@ -10,6 +10,5 @@ export interface EVCar {
   costPerYear: number
   make: string
   model: string
-  year: number
 }
 

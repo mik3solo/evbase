@@ -13,7 +13,7 @@ export function Logo() {
           priority
         />
       </div>
-      <span className="font-heading font-bold text-xl text-primary">EVplugged</span>
+      <span className="font-heading font-bold text-xl text-logo-blue">electric<span className="font-heading font-bold text-xl text-white">vehicle</span>base</span>
     </Link>
   )
 }

@@ -24,7 +24,7 @@ module.exports = {
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
         primary: {
-          DEFAULT: "hsl(var(--primary))",
+          DEFAULT: "#2596be", // Changed to a different shade of blue
           foreground: "hsl(var(--primary-foreground))",
         },
         secondary: {
@@ -51,7 +51,7 @@ module.exports = {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
-        "logo-blue": "#2596be",
+        "logo-blue": "#77b2de",
       },
       borderRadius: {
         lg: "var(--radius)",
@@ -74,6 +74,9 @@ module.exports = {
       },
     },
   },
-  plugins: [require("tailwindcss-animate")],
+  plugins: [
+    require("tailwindcss-animate"),
+    require("@tailwindcss/typography"),
+  ],
 }
 

@@ -9,37 +9,33 @@ export function EVCard({ car }: { car: EVCar }) {
         <Image src={car.image || "/placeholder.svg"} alt={car.name} fill className="object-cover" />
       </div>
       <CardContent className="p-4">
-        <div className="space-y-2 mb-4">
+        <div className="text-center space-y-2 mb-4">
           <h3 className="text-lg font-semibold">
-            {car.make} {car.model} {car.year}
+            {car.make} {car.model}
           </h3>
         </div>
-        <div className="grid grid-cols-2 gap-2 text-sm">
-          <div>
+        <div className="grid grid-cols-3 gap-2 text-sm mb-4">
+          <div className="text-center">
             <p className="font-semibold text-logo-blue">{car.range} mi</p>
             <p className="text-xs text-muted-foreground">Range</p>
           </div>
-          <div>
+          <div className="text-center">
             <p className="font-semibold">{car.battery} kWh</p>
             <p className="text-xs text-muted-foreground">Battery</p>
           </div>
-          <div>
+          <div className="text-center">
             <p className="font-semibold">{car.acceleration}s</p>
             <p className="text-xs text-muted-foreground">0-60 mph</p>
           </div>
-          <div>
+        </div>
+        <div className="grid grid-cols-2 gap-2 text-sm border-t pt-4">
+          <div className="text-center">
             <p className="font-semibold">${car.taxCredit.toLocaleString()} Est.</p>
             <p className="text-xs text-muted-foreground">Tax Credit</p>
           </div>
-        </div>
-        <div className="mt-4 pt-4 border-t grid grid-cols-2 gap-2 text-sm">
-          <div>
-            <p className="text-xs text-muted-foreground">MSRP</p>
+          <div className="text-center">
             <p className="font-semibold">${car.msrp.toLocaleString()}</p>
-          </div>
-          <div>
-            <p className="text-xs text-muted-foreground">Cost/Yr (est.)</p>
-            <p className="font-semibold">${car.costPerYear.toLocaleString()}</p>
+            <p className="text-xs text-muted-foreground">MSRP</p>
           </div>
         </div>
       </CardContent>

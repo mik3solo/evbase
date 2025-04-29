@@ -1,42 +1,105 @@
 "use client"
 
+import { useState, useEffect } from "react"
 import Link from "next/link"
 import Image from "next/image"
-import { Search } from "lucide-react"
 import { Input } from "@/components/ui/input"
 import { Badge } from "@/components/ui/badge"
+import { createClient } from "@supabase/supabase-js"
+import { ChevronRight } from "lucide-react"
+import { Button } from "@/components/ui/button"
+
+// If you already have a category → color map, keep it; otherwise define one:
+const categoryColors: Record<string, string> = {
+  Buying: "#77b2de",
+  Charging: "#20B2AA",
+  Maintenance: "#FFB347",
+  Seasonal: "#F7766B",
+  Travel: "#A29BFE",
+  // ...etc
+}
+
+// Initialize Supabase Client
+const supabase = createClient(
+  process.env.NEXT_PUBLIC_SUPABASE_URL!,
+  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+)
 
 export default function Home() {
+  // News state
+  const [newsArticles, setNewsArticles] = useState<any[]>([])
+  const [loadingNews, setLoadingNews] = useState(true)
+  const [newsError, setNewsError] = useState<string | null>(null)
+
+  // Guides state
+  const [evGuidesList, setEvGuidesList] = useState<any[]>([])
+  const [loadingGuides, setLoadingGuides] = useState(true)
+  const [guidesError, setGuidesError] = useState<string | null>(null)
+
+  // Fetch latest 6 news
+  useEffect(() => {
+    async function fetchNews() {
+      try {
+        const { data, error } = await supabase
+          .from("news_articles")
+          .select("*")
+          .order("date", { ascending: false })
+          .limit(6)
+
+        if (error) throw error
+        setNewsArticles(data)
+      } catch (err) {
+        console.error("Error fetching news:", err)
+        setNewsError("Failed to load news articles.")
+      } finally {
+        setLoadingNews(false)
+      }
+    }
+    fetchNews()
+  }, [])
+
+  // Fetch latest 4 guides
+  useEffect(() => {
+    async function fetchGuides() {
+      try {
+        const { data, error } = await supabase
+          .from("ev_guides")
+          .select("id, title, date, category, excerpt, image")
+          .order("date", { ascending: false })
+          .limit(4)
+
+        if (error) throw error
+        setEvGuidesList(data)
+      } catch (err) {
+        console.error("Error fetching guides:", err)
+        setGuidesError("Failed to load EV guides.")
+      } finally {
+        setLoadingGuides(false)
+      }
+    }
+    fetchGuides()
+  }, [])
+
   return (
     <div className="space-y-12">
       <section className="text-center space-y-4">
-        <h1 className="text-3xl font-bold tracking-tight font-heading text-logo-blue">The Ultimate Hub for EVs</h1>
+        <h1 className="text-3xl font-bold tracking-tight font-heading text-logo-blue gradient-text">The Ultimate Hub for EVs</h1>
         <p className="text-lg text-zinc-400 max-w-2xl mx-auto">
-          Discover EV Insights, Compare Cars, and Find the Best EV Deals.
+          Discover EV Insights, Browse Vehicles, and Estimate Savings.
         </p>
-        <div className="max-w-md mx-auto">
-          <div className="relative">
-            <Input
-              type="search"
-              placeholder="Search EV models or articles..."
-              className="w-full pl-10 pr-4 py-2 bg-black/20"
-            />
-            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-zinc-400" size={18} />
-          </div>
-        </div>
       </section>
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         <Link
           href="/cars"
-          className="group p-8 rounded-2xl border border-zinc-800/50 hover:border-logo-blue/50 hover:bg-logo-blue/5 transition-all"
+          className="group p-8 rounded-2xl border border-zinc-800/50 hover:border-logo-blue/50 hover:bg-electric-blue/5 transition-all card-hover-effect"
         >
           <div className="space-y-4">
             <div className="space-y-2">
               <Badge variant="secondary" className="bg-zinc-800/50">
                 Featured
               </Badge>
-              <h2 className="text-xl font-bold text-white font-heading">Explore Cars</h2>
+              <h2 className="text-2xl font-bold text-white font-heading">Explore Cars</h2>
             </div>
             <div className="w-16 h-16 relative">
               <Image
@@ -47,44 +110,44 @@ export default function Home() {
                 className="object-contain"
               />
             </div>
-            <p className="text-sm text-zinc-400">Explore our comprehensive database of electric vehicles.</p>
+            <p className="text-md text-zinc-400">Explore our electric vehicles database.</p>
           </div>
         </Link>
 
         <Link
-          href="/listings"
-          className="group p-8 rounded-2xl border border-zinc-800/50 hover:border-logo-blue/50 hover:bg-logo-blue/5 transition-all"
+          href="/guides"
+          className="group p-8 rounded-2xl border border-zinc-800/50 hover:border-logo-blue/50 hover:bg-electric-blue/5 transition-all card-hover-effect"
         >
           <div className="space-y-4">
             <div className="space-y-2">
               <Badge variant="secondary" className="bg-zinc-800/50">
-                Market
+                Resources
               </Badge>
-              <h2 className="text-xl font-bold text-white font-heading">Current Listings</h2>
+              <h2 className="text-2xl font-bold text-white font-heading">EV Guides</h2>
             </div>
             <div className="w-16 h-16 relative">
               <Image
                 src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-LvVk1HVJR8fudIDTyHgsuXgrvobmkP.png"
-                alt="EV Listings"
+                alt="EV Guides"
                 width={64}
                 height={64}
                 className="object-contain scale-[0.7]"
               />
             </div>
-            <p className="text-sm text-zinc-400">Browse and compare available electric vehicles in the market.</p>
+            <p className="text-md text-zinc-400">Comprehensive EV guides for your needs.</p>
           </div>
         </Link>
 
         <Link
-          href="/calculator"
-          className="group p-8 rounded-2xl border border-zinc-800/50 hover:border-logo-blue/50 hover:bg-logo-blue/5 transition-all"
+          href="/cost-calculator"
+          className="group p-8 rounded-2xl border border-zinc-800/50 hover:border-logo-blue/50 hover:bg-electric-blue/5 transition-all card-hover-effect"
         >
           <div className="space-y-4">
             <div className="space-y-2">
               <Badge variant="secondary" className="bg-zinc-800/50">
                 Tools
               </Badge>
-              <h2 className="text-xl font-bold text-white font-heading">Cost Estimator</h2>
+              <h2 className="text-2xl font-bold text-white font-heading">Cost Calculator</h2>
             </div>
             <div className="w-16 h-16 relative">
               <Image
@@ -95,73 +158,134 @@ export default function Home() {
                 className="object-contain scale-[0.6]"
               />
             </div>
-            <p className="text-sm text-zinc-400">Estimate the total cost of ownership for electric vehicles.</p>
+            <p className="text-md text-zinc-400">Estimate the cost of EV ownership.</p>
           </div>
         </Link>
       </div>
 
-      <section>
-        <div className="flex items-center justify-between mb-6">
-          <h2 className="text-2xl font-bold text-white font-heading">Latest News</h2>
-          <Link href="/news" className="text-logo-blue hover:text-logo-blue/80 text-sm">
-            View all news
-          </Link>
-        </div>
-        <div className="space-y-6">
-          {[
-            {
-              title: "New EV Tax Credits Announced",
-              date: "2023-06-01",
-              excerpt:
-                "The government has announced new tax credits for electric vehicle purchases, aiming to boost adoption rates.",
-              image:
-                "https://images.unsplash.com/photo-1593941707882-a5bba14938c7?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1740&q=80",
-            },
-            {
-              title: "Tesla Unveils Next-Gen Charging Stations",
-              date: "2023-05-28",
-              excerpt:
-                "Tesla's new charging stations promise faster charging times and improved compatibility with non-Tesla vehicles.",
-              image:
-                "https://images.unsplash.com/photo-1633025094151-6fc996255e28?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1742&q=80",
-            },
-            {
-              title: "Ford Doubles Down on Electric F-150 Production",
-              date: "2023-05-25",
-              excerpt:
-                "In response to high demand, Ford is significantly increasing production of its electric F-150 Lightning.",
-              image:
-                "https://images.unsplash.com/photo-1612831197310-ff5cf7a211b6?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1740&q=80",
-            },
-          ].map((article, i) => (
-            <Link
-              key={i}
-              href={`/news/${i + 1}`}
-              className="group flex items-center p-6 rounded-2xl border border-zinc-800/50 hover:border-logo-blue/50 hover:bg-logo-blue/5 transition-all overflow-hidden"
-            >
-              <div className="flex-1 pr-6">
-                <article className="space-y-3">
-                  <h3 className="text-xl font-bold text-white group-hover:text-logo-blue transition-colors font-heading">
-                    {article.title}
-                  </h3>
-                  <time className="text-sm text-zinc-500">{article.date}</time>
-                  <p className="text-sm text-zinc-400">{article.excerpt}</p>
-                </article>
-              </div>
-              <div className="w-1/3 h-48 relative">
-                <Image
-                  src={article.image || "/placeholder.svg"}
-                  alt={article.title}
-                  layout="fill"
-                  objectFit="cover"
-                  className="rounded-lg news-image-fade"
-                />
-              </div>
+      {/* News & Guides split */}
+      <div className="grid grid-cols-1 gap-8">
+        {/* News Section */}
+        <section>
+          <div className="flex items-center justify-between mb-6">
+            <h2 className="text-2xl font-bold text-white font-heading">Latest News</h2>
+            <Link href="/news" className="text-logo-blue hover:text-logo-blue/80 text-md">
+              View all news
             </Link>
-          ))}
-        </div>
-      </section>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {loadingNews ? (
+              <p className="text-zinc-400">Loading news...</p>
+            ) : newsError ? (
+              <p className="text-red-500">{newsError}</p>
+            ) : (
+              newsArticles.map((article, i) => (
+                <div
+                  key={i}
+                  className="group flex flex-col items-center p-6 rounded-2xl border border-zinc-800/50 transition-all overflow-hidden"
+                >
+                  <Link href={`/news#article-${article.id}`} className="w-full h-48 mb-4 block">
+                    <img
+                      src={article.image || "/placeholder.svg"}
+                      alt={article.title}
+                      className="w-full h-full object-cover rounded-lg"
+                    />
+                  </Link>
+              
+                  <div className="w-full">
+                    <article className="space-y-3">
+                      <div
+                        className="h-1 w-full mb-2"
+                        style={{ backgroundColor: i % 2 === 0 ? "#77b2de" : "#FCC737" }}
+                      />
+                      <Link href={`/news#article-${article.id}`} className="block">
+                        <h3 className="text-xl font-bold text-white group-hover:text-logo-blue transition-colors font-heading">
+                          {article.title}
+                        </h3>
+                      </Link>
+                      <time className="text-sm text-zinc-500">{article.date}</time>
+                      <div className="pt-2">
+                        <Link href={`/news#article-${article.id}`}>
+                          <Button
+                            variant="ghost"
+                            size="sm"
+                            className="text-logo-blue hover:text-logo-blue/80 hover:bg-logo-blue/10 flex items-center gap-1 px-0"
+                          >
+                            Read More <ChevronRight className="h-4 w-4" />
+                          </Button>
+                        </Link>
+                      </div>
+                    </article>
+                  </div>
+                </div>
+              ))
+            )}
+          </div>
+        </section>
+
+        {/* Guides Section */}
+        <section>
+          <div className="flex items-center justify-between mb-6">
+            <h2 className="text-2xl font-bold text-white font-heading">Guides</h2>
+            <Link href="/guides" className="text-electric-blue hover:text-logo-blue/80 text-sm font-medium">
+              View all guides
+            </Link>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {loadingGuides ? (
+              <p className="text-zinc-400">Loading guides...</p>
+            ) : guidesError ? (
+              <p className="text-red-500">{guidesError}</p>
+            ) : (
+              evGuidesList.map((guide, i) => {
+                const categoryColor = categoryColors[guide.category] || "#2596be"
+                return (
+                  <div
+                    key={guide.id}
+                    className="group flex flex-col items-center p-6 rounded-2xl border border-zinc-800/50 transition-all overflow-hidden"
+                  >
+                    
+                    <Link href={`/guides/${guide.id}`} className="w-full h-48 mb-4 block">
+                      <img
+                        src={guide.image || "/placeholder.svg"}
+                        alt={guide.title}
+                        className="w-full h-full object-cover rounded-lg"
+                      />
+                    </Link>
+            
+                    <div className="w-full">
+                      <article className="space-y-3">
+                        <div
+                          className="h-1 w-full mb-2"
+                          style={{ backgroundColor: categoryColor }}
+                        />
+                        <Link href={`/guides/${guide.id}`} className="block">
+                          <h3 className="text-xl font-bold text-white group-hover:text-logo-blue transition-colors font-heading">
+                            {guide.title}
+                          </h3>
+                        </Link>
+                        <time className="text-sm text-zinc-500">{guide.date}</time>
+                        <div className="pt-1">
+                          <Link href={`/guides/${guide.id}`}>
+                            <Button
+                              variant="ghost"
+                              size="sm"
+                              className="text-logo-blue hover:text-logo-blue/80 hover:bg-logo-blue/10 flex items-center gap-1 px-0"
+                            >
+                              Read Guide <ChevronRight className="h-3 w-3" />
+                            </Button>
+                          </Link>
+                        </div>
+                      </article>
+                    </div>
+                    
+                  </div>
+                )
+              })
+            )}
+          </div>
+        </section>
+      </div>
     </div>
   )
 }
-
