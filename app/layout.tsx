@@ -4,6 +4,7 @@ import { MainNav } from "@/components/main-nav"
 import { Logo } from "@/components/logo"
 import { Footer } from "@/components/footer"
 import { Toaster } from "@/components/ui/toaster"
+import { Analytics } from "@vercel/analytics/react"
 import type React from "react"
 
 const inter = Inter({
@@ -53,6 +54,7 @@ export default function RootLayout({
           </div>
         </div>
         <Toaster />
+        <Analytics />
       </body>
     </html>
   )
