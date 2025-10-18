@@ -4,7 +4,7 @@ import type { EVCar } from "@/types/ev"
 
 export function EVCard({ car }: { car: EVCar }) {
   return (
-    <Card className="overflow-hidden bg-background/80 backdrop-blur-md supports-[backdrop-filter]:bg-background/60 hover:shadow-lg transition-shadow">
+    <Card className="overflow-hidden border border-zinc-800/100 bg-background/80 backdrop-blur-md supports-[backdrop-filter]:bg-background/60 hover:shadow-lg transition-shadow">
       <div className="relative aspect-[16/9]">
         <Image src={car.image || "/placeholder.svg"} alt={car.name} fill className="object-cover" />
       </div>

@@ -99,7 +99,7 @@ export default function Home() {
               <Badge variant="secondary" className="bg-zinc-800/50">
                 Featured
               </Badge>
-              <h2 className="text-2xl font-bold text-white font-heading">Explore Cars</h2>
+              <h2 className="text-2xl font-bold text-white font-heading">EV Database</h2>
             </div>
             <div className="w-16 h-16 relative">
               <Image
@@ -110,7 +110,7 @@ export default function Home() {
                 className="object-contain"
               />
             </div>
-            <p className="text-md text-zinc-400">Explore our electric vehicles database.</p>
+            <p className="text-md text-zinc-400">Explore production electric vehicles.</p>
           </div>
         </Link>
 
@@ -134,7 +134,7 @@ export default function Home() {
                 className="object-contain scale-[0.7]"
               />
             </div>
-            <p className="text-md text-zinc-400">Comprehensive EV guides for your needs.</p>
+            <p className="text-md text-zinc-400">Comprehensive EV guides.</p>
           </div>
         </Link>
 
@@ -158,7 +158,7 @@ export default function Home() {
                 className="object-contain scale-[0.6]"
               />
             </div>
-            <p className="text-md text-zinc-400">Estimate the cost of EV ownership.</p>
+            <p className="text-md text-zinc-400">Estimate/Compare EV ownership costs.</p>
           </div>
         </Link>
       </div>
@@ -168,7 +168,12 @@ export default function Home() {
         {/* News Section */}
         <section>
           <div className="flex items-center justify-between mb-6">
-            <h2 className="text-2xl font-bold text-white font-heading">Latest News</h2>
+          <div className="flex items-center">
+              <div className="bg-gradient-to-r from-electric-blue to-electric-blue/50 py-1 px-4 rounded-lg shadow-lg shadow-electric-blue/20">
+                <h2 className="text-2xl font-bold text-white font-heading">Latest News</h2>
+              </div>
+              <div className="h-[2px] bg-gradient-to-r from-electric-blue/80 to-transparent flex-grow ml-3 mr-4"></div>
+            </div>
             <Link href="/news" className="text-logo-blue hover:text-logo-blue/80 text-md">
               View all news
             </Link>
@@ -184,7 +189,7 @@ export default function Home() {
                   key={i}
                   className="group flex flex-col items-center p-6 rounded-2xl border border-zinc-800/50 transition-all overflow-hidden"
                 >
-                  <Link href={`/news#article-${article.id}`} className="w-full h-48 mb-4 block">
+                  <Link href={`/news#article-${article.id}`} className="w-full h-60 mb-4 block">
                     <img
                       src={article.image || "/placeholder.svg"}
                       alt={article.title}
@@ -226,8 +231,13 @@ export default function Home() {
         {/* Guides Section */}
         <section>
           <div className="flex items-center justify-between mb-6">
-            <h2 className="text-2xl font-bold text-white font-heading">Guides</h2>
-            <Link href="/guides" className="text-electric-blue hover:text-logo-blue/80 text-sm font-medium">
+          <div className="flex items-center">
+              <div className="bg-gradient-to-r from-electric-green to-electric-green/50 py-1 px-4 rounded-lg shadow-lg shadow-electric-green/20">
+                <h2 className="text-2xl font-bold text-white font-heading">EV Guides</h2>
+              </div>
+              <div className="h-[2px] bg-gradient-to-r from-electric-green/80 to-transparent flex-grow ml-3 mr-4"></div>
+            </div>
+            <Link href="/guides" className="text-electric-green hover:text-logo-blue/80 text-sm font-medium">
               View all guides
             </Link>
           </div>
