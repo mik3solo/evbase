@@ -27,8 +27,8 @@ const DEFAULT_VALUES = {
   evIncentive: 7500,
   evInsurance: 1900, // annual insurance cost (updated)
   gasInsurance: 1700,
-  evDepreciationRate: 0.49, // 49% depreciation over ownership period (updated)
-  gasDepreciationRate: 0.61,
+  evDepreciationRate: 0.45, // 45% depreciation over ownership period (updated)
+  gasDepreciationRate: 0.45,
 }
 
 export default function CostEstimatorPage() {
