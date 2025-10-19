@@ -216,11 +216,8 @@ useEffect(() => {
     <div className="space-y-8">
       <div className="space-y-4">
         <div className="flex items-center gap-3">
-          <div className="w-12 h-12 bg-logo-blue/10 rounded-full flex items-center justify-center">
-            <Calculator className="w-6 h-6 text-logo-blue" />
-          </div>
           <div>
-            <h1 className="text-3xl font-bold text-logo-blue">Cost of Ownership Calculator (TCO)</h1>
+            <h1 className="text-2xl font-bold mb-4 text-logo-blue">Cost of Ownership Calculator (TCO)</h1>
             <p className="text-zinc-400">Compare the total cost of ownership between electric and gas vehicles</p>
           </div>
         </div>

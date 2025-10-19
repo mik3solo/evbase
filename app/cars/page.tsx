@@ -35,7 +35,7 @@ export default function CarsPage() {
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-2xl font-bold mb-4 text-logo-blue">The Showroom...</h1>
+        <h1 className="text-2xl font-bold mb-4 text-logo-blue">Browse EVs...</h1>
         <p className="text-muted-foreground">
           Check out available electric vehicles in the market.
         </p>
