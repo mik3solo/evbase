@@ -194,7 +194,7 @@ export function VehicleSelector({ vehicleType, onVehicleSelect, className }: Veh
 
   return (
     <div className={cn("space-y-4", className)}>
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+      <div className="flex flex-col gap-4">
         {/* Year Selector */}
         <div>
           <Label htmlFor="year-select">Year</Label>
