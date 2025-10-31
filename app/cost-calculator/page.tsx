@@ -255,10 +255,12 @@ useEffect(() => {
                         <Label htmlFor="ev-price">EV Purchase Price ($)</Label>
                         <Input
                           id="ev-price"
-                          type="number"
-                          value={evPrice}
-                          onChange={(e) => setEvPrice(Number(e.target.value))}
-                          min={0}
+                          type="text"
+                          value={evPrice.toLocaleString()}
+                          onChange={(e) => {
+                            const numericValue = Number(e.target.value.replace(/,/g, ""));
+                            if (!isNaN(numericValue)) setEvPrice(numericValue);
+                          }}
                         />
                       </div>
                       <div>
@@ -305,10 +307,12 @@ useEffect(() => {
                         <Label htmlFor="gas-price">Gas Vehicle Purchase Price ($)</Label>
                         <Input
                           id="gas-price"
-                          type="number"
-                          value={gasPrice}
-                          onChange={(e) => setGasPrice(Number(e.target.value))}
-                          min={0}
+                          type="text"
+                          value={gasPrice.toLocaleString()}
+                          onChange={(e) => {
+                            const numericValue = Number(e.target.value.replace(/,/g, ""));
+                            if (!isNaN(numericValue)) setGasPrice(numericValue);
+                          }}
                         />
                       </div>
                       <div>
